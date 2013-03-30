@@ -1,0 +1,20 @@
+Node Notes
+
+Global Varialbes:
+
+- _dirname - name of folder you're running file from
+- req.url - the current url
+
+
+Notes:
+
+*To save download time, have the file saved to cash. Must set to delete cashed file when file changes
+
+*include version information in package.json file
+
+
+Sockets - 3 types
+
+socket.emit - only goes to person who started message
+socket.broadcast - goes to everyone except person who sent message
+io.sockets.emit - goes to everyone
