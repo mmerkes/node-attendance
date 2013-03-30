@@ -4,18 +4,57 @@
 <head>
 	<meta charset="utf-8" >
 	<title>Node.js Bootcamp</title>
-
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	
 </head>
 
 <body>
 	<h1>Let us know you're here!</h1>
 
-	<form name="input" action="app.js" method="get">
-		First Name: <input type="text" name="firstName"><br>
-		Last Name: <input type="text" name="lastName"><br>
-		Email Address: <input type="text" name="email"><br>
-		<input type="submit" value="Submit">
-	</form>
+	<script>
+		var socket = io.connect();
+
+		// listener, whenever the server emits 'updateAttendees', this the attendee 
+		// list
+		socket.on('updateAttendees', function (data) {
+		    $('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + '-</b> ' +
+		    	data.email + '<br>');
+		});
+		// on load of page
+	  	$(function(){
+		    // when the client clicks SUBMIT
+		    $('#submit').click( function(e) {
+		    		e.preventDefault();
+			      var firstName = $('#firstName').val();
+			      $('#firstName').val('');
+			      var lastName = $('#lastName').val();
+			      $('#lastName').val('');
+			      var email = $('#email').val();
+			      $('#email').val('');
+			      // tell server to execute send attendees with 3 parameters
+			      socket.emit('sendAttendees', {firstName: firstName, lastName: lastName, email: email});
+		    });
+	 
+		    // when the client hits ENTER on their keyboard
+		    $('#email').keypress(function(e) {
+			    if(e.which == 13) {
+				    $(this).blur();
+				    $('#submit').focus().click();
+			    }
+		    });
+	    });
+
+	</script>
+
+
+		First Name: <input type="text" id="firstName"><br>
+		Last Name: <input type="text" id="lastName"><br>
+		Email Address: <input type="text" id="email"><br>
+		<input type="submit" value="Submit" id="submit">
+		<br><br>
+		<div id="attendeeList"></div>
+
 
 </body>
 
