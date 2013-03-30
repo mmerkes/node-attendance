@@ -38,6 +38,7 @@
 	 
 		    // when the client hits ENTER on their keyboard
 		    $('#email').keypress(function(e) {
+		    	e.preventDefault();
 			    if(e.which == 13) {
 				    $(this).blur();
 				    $('#submit').focus().click();
