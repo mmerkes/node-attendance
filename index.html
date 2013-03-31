@@ -45,14 +45,12 @@
 	<script>
 		var socket = io.connect();
 
-		// on connection to the server
-		socket.on('connect', function(){
-			//currently broke
-			socket.emit('getPrevious');
-			socket.on('sendData', function(attendees){
+		socket.on('previous', function(attendees) {
+			for (var i = 0; i < attendees.length; i++) {
+				var data = attendees[i];
 				$('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + '-</b> ' +
-			    	data.email + '<br>');
-			});
+		    	data.email + '<br>');
+			}
 		});
 
 		// listener, whenever the server emits 'updateAttendees', this the attendee 

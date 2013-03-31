@@ -13,18 +13,15 @@ app.get('/', function (req, res) {
 var attendees = new Array();
 
 io.sockets.on('connection', function (socket) {
-
-  // currently broke
- socket.on('getPrevious', function() {
-    socket.emit(attendees)
-  }); 
+  if(attendees.length != 0)  
+    socket.emit('previous', attendees);
 
   // when the client emits submit name, updates attendees list
   socket.on('sendAttendees', function (data) {
-    attendees.push(data); 
-    console.log(attendees); // write to a file?
-    // we tell the client to execute 'updateAttendees' with 3 parameters
-    io.sockets.emit('updateAttendees', data);
+      attendees.push(data); 
+      console.log(attendees); // write to a file?
+      // we tell the client to execute 'updateAttendees' with 3 parameters
+      io.sockets.emit('updateAttendees', data);
   });
 
 });
