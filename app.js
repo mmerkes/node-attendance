@@ -18,10 +18,22 @@ io.sockets.on('connection', function (socket) {
 
   // when the client emits submit name, updates attendees list
   socket.on('sendAttendees', function (data) {
-      attendees.push(data); 
-      console.log(attendees); // write to a file?
-      // we tell the client to execute 'updateAttendees' with 3 parameters
-      io.sockets.emit('updateAttendees', data);
+      console.log(data.email + 'printout');
+      var unique = true;
+
+      for (var i = 0; i < attendees.length; i++) {
+        if (attendees[i].email == data.email) {
+          console.log('We have a match');
+          unique = false;
+          socket.emit('used');
+        }   
+      } 
+      if(unique) {
+        attendees.push(data); 
+        console.log(attendees); // write to a file?
+        // we tell the client to execute 'updateAttendees' with 3 parameters
+        io.sockets.emit('updateAttendees', data);
+      }
   });
 
 });

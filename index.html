@@ -53,6 +53,10 @@
 			}
 		});
 
+		socket.on('used', function(){
+			alert('That email has already been used!');
+		});
+
 		// listener, whenever the server emits 'updateAttendees', this the attendee 
 		// list
 		socket.on('updateAttendees', function (data) {
