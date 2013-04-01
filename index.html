@@ -48,7 +48,7 @@
 		socket.on('previous', function(attendees) {
 			for (var i = 0; i < attendees.length; i++) {
 				var data = attendees[i];
-				$('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + '-</b> ' +
+				$('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + ' -</b> ' +
 		    	data.email + '<br>');
 			}
 		});
@@ -60,7 +60,7 @@
 		// listener, whenever the server emits 'updateAttendees', this the attendee 
 		// list
 		socket.on('updateAttendees', function (data) {
-		    $('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + '-</b> ' +
+		    $('#attendeeList').append('<b>'+ data.firstName + ' ' + data.lastName + ' -</b> ' +
 		    	data.email + '<br>');
 		});
 		// on load of page
